@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mos Eisley Exchange — The official and unofficial salvage, trade, and transport registry of Mos Eisley Spaceport. If it's for sale, it's here." />
+  <meta name="author" content="Mos Eisley Port Authority, Tatooine" />
+  <meta name="theme-color" content="#F5E6D3" />
+  <meta property="og:title" content="Mos Eisley Exchange | Salvage, Trade & Transport Registry" />
+  <meta property="og:description" content="Tatooine's frontier trading post. Register salvage finds, list trade goods, book passage, and find what you're looking for — or what's looking for you." />
+  <meta property="og:type" content="website" />
+  <title>Mos Eisley Exchange | Salvage, Trade & Transport Registry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Inter:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #F5E6D3;
+      --surface:    #EDE0D4;
+      --elevated:   #E4D5C6;
+      --border:     #C8B89F;
+      --border-dk:  #A89070;
+      --orange:     #E65100;
+      --orange-dk:  #BF360C;
+      --orange-lt:  #FBE9E7;
+      --tan:        #D4A96A;
+      --leather:    #8B6545;
+      --sand:       #F0DCBE;
+      --text:       #2C1810;
+      --text-muted: #6B4C36;
+      --text-light: #9B7A62;
+      --font-head:  'Arvo', Georgia, serif;
+      --font-body:  'Inter', sans-serif;
+      --font-data:  'Courier Prime', 'Courier New', monospace;
+      --radius:     3px;
+      --shadow:     0 2px 8px rgba(44,24,16,0.12), 0 1px 3px rgba(44,24,16,0.08);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* BANNER */
+    .banner {
+      background: var(--orange);
+      padding: 6px 40px;
+      text-align: center;
+      font-family: var(--font-data);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border-dk);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      box-shadow: var(--shadow);
+    }
+    .nav-brand {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-brand-badge {
+      background: var(--orange);
+      color: #fff;
+      font-size: 10px;
+      font-family: var(--font-data);
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--elevated); color: var(--text); }
+    .nav-links a.active { color: var(--orange); background: var(--orange-lt); }
+    .btn-list {
+      padding: 9px 20px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-list:hover { background: var(--orange-dk); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+      filter: brightness(0.75) saturate(1.2);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(245,230,211,0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px 56px;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--font-data);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 14px;
+      max-width: 600px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 24px;
+    }
+    .hero-stat {
+      text-align: center;
+      background: rgba(245,230,211,0.85);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: var(--radius);
+    }
+    .hero-stat-num {
+      font-family: var(--font-data);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+    .mt-48 { margin-top: 48px; }
+
+    /* SECTION HEADS */
+    .section-head { margin-bottom: 24px; }
+    .section-head h2 {
+      font-family: var(--font-head);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .section-head p { font-size: 14px; color: var(--text-muted); }
+    .rule {
+      width: 36px;
+      height: 2px;
+      background: var(--orange);
+      margin: 8px 0;
+    }
+
+    /* LISTING CARDS */
+    .listing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .listing-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(44,24,16,0.15); }
+    .listing-card-cat {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--leather);
+      margin-bottom: 6px;
+    }
+    .listing-card h3 {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .listing-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .listing-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+    .listing-price {
+      font-family: var(--font-data);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .listing-price span {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    .btn-inquire {
+      padding: 7px 16px;
+      background: transparent;
+      border: 1px solid var(--border-dk);
+      color: var(--text-muted);
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .btn-inquire:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-lt); }
+    .btn-inquire.orange { background: var(--orange); color: #fff; border-color: var(--orange); }
+    .btn-inquire.orange:hover { background: var(--orange-dk); }
+
+    /* MANIFEST TABLE */
+    .manifest {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .manifest table { width: 100%; border-collapse: collapse; }
+    .manifest th {
+      background: var(--elevated);
+      padding: 10px 16px;
+      text-align: left;
+      font-family: var(--font-data);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+    }
+    .manifest td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .manifest tr:last-child td { border-bottom: none; }
+    .manifest tr:hover td { background: var(--elevated); }
+    .condition {
+      font-family: var(--font-data);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .condition.good  { background: #E8F5E9; color: #2E7D32; }
+    .condition.worn  { background: #FFF8E1; color: #F57F17; }
+    .condition.junk  { background: #FFEBEE; color: #C62828; }
+    .condition.parts { background: var(--sand); color: var(--leather); }
+
+    /* SIDEBAR */
+    .notice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .notice-card h4 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .notice-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 13px;
+    }
+    .notice-item:last-child { border-bottom: none; }
+    .notice-item-key { color: var(--text-muted); }
+    .notice-item-val { color: var(--text); font-family: var(--font-data); font-size: 12px; }
+    .notice-item-val.orange { color: var(--orange); }
+
+    /* FOOTER */
+    footer {
+      background: var(--elevated);
+      border-top: 2px solid var(--border-dk);
+      padding: 32px 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 32px;
+    }
+    footer h4 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    footer p, footer a {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      text-decoration: none;
+      display: block;
+    }
+    footer a:hover { color: var(--orange); }
+    .footer-base {
+      background: var(--border);
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer-base p {
+      font-family: var(--font-data);
+      font-size: 11px;
+      color: var(--text-light);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANNER -->
+  <div class="banner" role="alert">
+    PORT ADVISORY: Twin suns at peak — hydration protocols in effect. Jawa scrap fair every third Tatooine month in Hangar 7.
+  </div>
+
+  <!-- NAV -->
+  <nav aria-label="Mos Eisley Exchange navigation">
+    <div class="nav-brand">
+      Mos Eisley Exchange
+      <span class="nav-brand-badge">Est. 3277 CRC</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Trade Board</a></li>
+      <li><a href="#">Salvage</a></li>
+      <li><a href="#">Transport</a></li>
+      <li><a href="#">Cantina</a></li>
+      <li><a href="#">Port Office</a></li>
+    </ul>
+    <button class="btn-list">List an Item</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Mos Eisley Spaceport marketplace">
+    <img src="./images/hero.jpg" alt="Mos Eisley spaceport at golden hour with twin suns low on the horizon, weathered adobe buildings, merchants, droids, and various alien species trading in the dusty marketplace" />
+    <div class="hero-overlay">
+      <span class="hero-tag">Trade Board — Updated This Morning</span>
+      <h1>If It's For Sale,<br />It's Listed Here</h1>
+      <p class="hero-sub">The only honest registry in the Outer Rim. Salvage finds, passage bookings, droid parts, speeder hire, and no questions asked — within reason.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">312</div>
+          <div class="hero-stat-label">Active Listings</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">47</div>
+          <div class="hero-stat-label">Departures Today</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">2</div>
+          <div class="hero-stat-label">Imperial Inspections</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- FEATURED LISTINGS -->
+    <div class="section-head">
+      <h2>Featured Listings</h2>
+      <div class="rule"></div>
+      <p>Hand-picked by the Exchange's port master. First come, first served — and that's the only rule that matters out here.</p>
+    </div>
+    <div class="grid-3">
+      <div class="listing-card">
+        <p class="listing-card-cat">Transport — Fast Freighter</p>
+        <h3>YT-1300 Freighter "Reliable"</h3>
+        <p>Modified cargo freighter. Hyperspace-capable. 12 parsec capable navigation suite — well, almost. Owner motivated to sell. No questions about the Kessel modification.</p>
+        <div class="listing-card-footer">
+          <div class="listing-price">60,000 Cr <span>or best offer</span></div>
+          <button class="btn-inquire orange">Inquire</button>
+        </div>
+      </div>
+      <div class="listing-card">
+        <p class="listing-card-cat">Droids — Salvage Lot</p>
+        <h3>Jawa Lot #7: R-Series + Protocol</h3>
+        <p>Fresh off the sandcrawler. One R2 unit, one protocol droid, one treadwell of unknown vintage. All operational — allegedly. Mind-wipe status unknown.</p>
+        <div class="listing-card-footer">
+          <div class="listing-price">2,800 Cr <span>lot price</span></div>
+          <button class="btn-inquire">Inquire</button>
+        </div>
+      </div>
+      <div class="listing-card">
+        <p class="listing-card-cat">Salvage — Weapons</p>
+        <h3>Clone-Era E-11 Blasters (x6)</h3>
+        <p>Surplus stock. All six functional. Two have modified power cells, fire rate double standard. Suitable for farm security or — other purposes.</p>
+        <div class="listing-card-footer">
+          <div class="listing-price">4,500 Cr <span>lot of 6</span></div>
+          <button class="btn-inquire">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANIFEST + SIDEBAR -->
+    <div class="grid-2 mt-48">
+      <div>
+        <div class="section-head">
+          <h2>Salvage Manifest</h2>
+          <div class="rule"></div>
+          <p>Registered finds from this month. Jawa lots, crash salvage, and private offerings.</p>
+        </div>
+        <div class="manifest">
+          <table aria-label="Salvage manifest registry">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Origin</th>
+                <th>Condition</th>
+                <th>Price</th>
+                <th>Registered By</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:600">Moisture Vaporator Unit (x4)</td>
+                <td style="color:var(--text-muted)">Lars Homestead</td>
+                <td><span class="condition good">Good</span></td>
+                <td style="font-family:var(--font-data);color:var(--orange)">1,200 Cr</td>
+                <td style="color:var(--text-muted)">Owen L.</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Dewback Harness Set</td>
+                <td style="color:var(--text-muted)">Mos Espa Auction</td>
+                <td><span class="condition worn">Worn</span></td>
+                <td style="font-family:var(--font-data);color:var(--orange)">340 Cr</td>
+                <td style="color:var(--text-muted)">Unknown</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Podracer Engine Block (Boonta type)</td>
+                <td style="color:var(--text-muted)">Mos Espa Circuit</td>
+                <td><span class="condition parts">Parts</span></td>
+                <td style="font-family:var(--font-data);color:var(--orange)">780 Cr</td>
+                <td style="color:var(--text-muted)">Watto's estate</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Sandcrawler Navigation Core</td>
+                <td style="color:var(--text-muted)">Jundland Wastes crash</td>
+                <td><span class="condition worn">Worn</span></td>
+                <td style="font-family:var(--font-data);color:var(--orange)">2,100 Cr</td>
+                <td style="color:var(--text-muted)">Jawas Lot 12</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600">Imperial Probe Droid Chassis</td>
+                <td style="color:var(--text-muted)">Dune Sea</td>
+                <td><span class="condition junk">Scrap</span></td>
+                <td style="font-family:var(--font-data);color:var(--orange)">90 Cr</td>
+                <td style="color:var(--text-muted)">Anonymous</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="notice-card">
+          <h4>Port Status</h4>
+          <div class="notice-item">
+            <span class="notice-item-key">Berths Available</span>
+            <span class="notice-item-val">14 of 22</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Fuel (Hypermatter)</span>
+            <span class="notice-item-val orange">Limited Stock</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Today's Departures</span>
+            <span class="notice-item-val">47</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Imperial Presence</span>
+            <span class="notice-item-val orange">2 Patrols</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Exchange Rate</span>
+            <span class="notice-item-val">1 Cr = 0.4 Wupiupi</span>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <h4>Transport Openings</h4>
+          <div class="notice-item">
+            <span class="notice-item-key">Alderaan direct</span>
+            <span class="notice-item-val">2 seats — 1,200 Cr</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Corellia (via Hutt space)</span>
+            <span class="notice-item-val">4 seats — 800 Cr</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Outer Rim: No Fixed Route</span>
+            <span class="notice-item-val orange">Negotiate</span>
+          </div>
+          <div class="notice-item">
+            <span class="notice-item-key">Mos Espa shuttle</span>
+            <span class="notice-item-val">Daily — 40 Cr</span>
+          </div>
+        </div>
+
+        <div class="notice-card">
+          <h4>Port Master's Notice</h4>
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.7">No blasters in the cantina. Jawas must be accompanied by a registered trader. All droid sales must include provenance documentation. The Exchange accepts no liability for deals made in the back of Docking Bay 94.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <h4>Mos Eisley Exchange</h4>
+      <p>The frontier's most reliable trade and salvage registry. Where the Outer Rim comes to do business, ask few questions, and occasionally shoot first.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="#">Trade Board</a>
+      <a href="#">Salvage Registry</a>
+      <a href="#">Passage Booking</a>
+      <a href="#">Port Master's Office</a>
+    </div>
+    <div>
+      <h4>Contacts</h4>
+      <a href="#">Chalmun's Cantina</a>
+      <a href="#">Docking Bay 94</a>
+      <a href="#">Jawa Traders Guild</a>
+      <a href="#">Imperial Compliance</a>
+    </div>
+  </footer>
+  <div class="footer-base">
+    <p>© Mos Eisley Exchange, Tatooine — Outer Rim Territories. Est. 3277 CRC.</p>
+    <p>We're not the droids they're looking for.</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Galactic Republic Senate Archives — Official proceedings, legislative records, and planetary delegation registry for the 853rd Senate Session." />
+  <meta name="author" content="Office of the Supreme Chancellor, Galactic Republic" />
+  <meta name="theme-color" content="#0055A4" />
+  <meta property="og:title" content="Galactic Senate Archives | 853rd Session Proceedings" />
+  <meta property="og:description" content="Access legislative records, planetary delegation summaries, and Chancellor directives from the Galactic Republic's Senate." />
+  <meta property="og:type" content="website" />
+  <title>Galactic Senate Archives | 853rd Session Proceedings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #FFFFFF;
+      --surface:    #F5F7FA;
+      --border:     #DDE3EC;
+      --blue:       #0055A4;
+      --blue-light: #EBF2FB;
+      --blue-dark:  #003D7A;
+      --gold:       #B8960C;
+      --gold-light: #FDF6DC;
+      --text:       #1A1A2E;
+      --text-muted: #5A6380;
+      --text-light: #8892A4;
+      --font-head:  'Crimson Pro', Georgia, serif;
+      --font-body:  'Inter', sans-serif;
+      --radius:     6px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-emblem {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+    }
+    .nav-brand-text {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .nav-brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--surface); color: var(--text); }
+    .nav-links a.active { color: var(--blue); background: var(--blue-light); }
+    .btn-nav {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.15s;
+    }
+    .btn-nav:hover { background: var(--blue-dark); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.65);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 20%, rgba(255,255,255,0.92) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 56px 80px;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      border: 1px solid var(--gold);
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 54px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      max-width: 680px;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-primary {
+      padding: 12px 28px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-outline {
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: var(--blue-light); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 48px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+    .mt-56 { margin-top: 56px; }
+
+    /* SECTION TITLE */
+    .section-head {
+      margin-bottom: 32px;
+    }
+    .section-head h2 {
+      font-family: var(--font-head);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .section-head p {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      margin: 12px 0;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: box-shadow 0.2s;
+    }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,85,164,0.08); }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--blue-light);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+    .card-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* PROCEEDINGS TABLE */
+    .proceedings {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .proceedings table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .proceedings th {
+      background: var(--surface);
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .proceedings td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .proceedings tr:last-child td { border-bottom: none; }
+    .proceedings tr:hover td { background: var(--surface); }
+    .status-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .status-pill.passed { background: #E8F5E9; color: #2E7D32; }
+    .status-pill.debating { background: var(--blue-light); color: var(--blue); }
+    .status-pill.tabled { background: #FFF3E0; color: #E65100; }
+    .status-pill.referred { background: var(--surface); color: var(--text-muted); }
+
+    /* SIDEBAR */
+    .notice-box {
+      background: var(--gold-light);
+      border: 1px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .notice-box h4 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .notice-box p { font-size: 13px; color: var(--text-muted); }
+    .sidebar-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .sidebar-list-item {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-list-item:last-child { border-bottom: none; }
+    .sidebar-list-item:hover { background: var(--blue-light); }
+    .sidebar-list-item a {
+      font-size: 13px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sidebar-list-item span {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 14px 20px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+    footer h4 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    footer p, footer a {
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      display: block;
+    }
+    footer a:hover { color: rgba(255,255,255,0.9); }
+    .footer-bottom {
+      background: var(--blue-dark);
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Primary navigation">
+    <a href="#" class="nav-brand">
+      <div class="nav-emblem">✦</div>
+      <div>
+        <div class="nav-brand-text">Galactic Republic</div>
+        <div class="nav-brand-sub">Senate Archives Portal</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Proceedings</a></li>
+      <li><a href="#">Delegations</a></li>
+      <li><a href="#">Committees</a></li>
+      <li><a href="#">Treaties</a></li>
+      <li><a href="#">Chancellor's Office</a></li>
+    </ul>
+    <button class="btn-nav">Request Access</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Senate session announcement">
+    <img src="./images/hero.jpg" alt="The majestic Galactic Senate rotunda chamber, filled with thousands of floating senatorial pods" />
+    <div class="hero-overlay">
+      <span class="hero-tag">853rd Senate Session — Now in Progress</span>
+      <h1>A More Perfect<br />Galactic Union</h1>
+      <p class="hero-sub">Official proceedings, legislative records, and delegation directories for the Galactic Republic Senate. Transparency in governance is the foundation of democracy.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">View Current Bills</button>
+        <button class="btn-outline">Browse Archives</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- FEATURE CARDS -->
+    <div class="section-head">
+      <h2>Senate Services</h2>
+      <div class="divider"></div>
+      <p>Access official records, legislative summaries, and committee reports from the 853rd and previous sessions.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">📜</div>
+        <h3>Legislative Record</h3>
+        <p>Browse all submitted bills, amendments, and resolutions from the 853rd session, fully indexed and searchable by sector and sponsor.</p>
+        <a href="#" class="card-link">Browse legislation →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>Planetary Delegations</h3>
+        <p>Directories for all 10,000 member worlds, including senator profiles, voting histories, and committee assignments.</p>
+        <a href="#" class="card-link">Find a delegation →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <h3>Committee Reports</h3>
+        <p>Intelligence, Defense, Trade, and Appropriations committee findings. Declassified summaries available to registered citizens.</p>
+        <a href="#" class="card-link">Read reports →</a>
+      </div>
+    </div>
+
+    <!-- PROCEEDINGS TABLE + SIDEBAR -->
+    <div class="grid-2 mt-56">
+      <div>
+        <div class="section-head">
+          <h2>Current Session Proceedings</h2>
+          <div class="divider"></div>
+          <p>Bills under consideration in the 853rd Session of the Galactic Senate.</p>
+        </div>
+        <div class="proceedings">
+          <table aria-label="Current senate proceedings">
+            <thead>
+              <tr>
+                <th>Bill Ref.</th>
+                <th>Title</th>
+                <th>Sponsor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0091</td>
+                <td>Mid-Rim Trade Corridor Expansion Act</td>
+                <td>Senator Amidala, Naboo</td>
+                <td><span class="status-pill debating">Debating</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0087</td>
+                <td>Emergency Clone Force Authorization</td>
+                <td>Chancellor Palpatine</td>
+                <td><span class="status-pill passed">Passed</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0083</td>
+                <td>Banking Clan Oversight Reform</td>
+                <td>Senator Organa, Alderaan</td>
+                <td><span class="status-pill debating">Debating</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0079</td>
+                <td>Outer Rim Humanitarian Aid Package</td>
+                <td>Senator Chuchi, Pantora</td>
+                <td><span class="status-pill referred">Referred</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0074</td>
+                <td>Separatist Planet Reintegration Protocol</td>
+                <td>Senator Binks, Naboo</td>
+                <td><span class="status-pill tabled">Tabled</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--blue)">GRS-853-0068</td>
+                <td>Jedi Order Accountability Measures</td>
+                <td>Senator Mee Deechi</td>
+                <td><span class="status-pill debating">Debating</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="notice-box">
+          <h4>Chancellor's Notice</h4>
+          <p>The emergency session convened on behalf of the War Powers Act remains open. Senators are reminded that all votes on GRS-853-0087 are final. The Republic thanks you for your service in these difficult times.</p>
+        </div>
+
+        <div class="sidebar-list">
+          <div class="sidebar-title">Upcoming Sessions</div>
+          <div class="sidebar-list-item">
+            <a href="#">Full Plenary — Trade Policy Debate</a>
+            <span>Starday, 2nd</span>
+          </div>
+          <div class="sidebar-list-item">
+            <a href="#">Defense Committee Closed Session</a>
+            <span>Zhellday, 4th</span>
+          </div>
+          <div class="sidebar-list-item">
+            <a href="#">Outer Rim Territories Hearing</a>
+            <span>Taungsday, 7th</span>
+          </div>
+          <div class="sidebar-list-item">
+            <a href="#">Jedi Liaison Council Meeting</a>
+            <span>Benduday, 9th</span>
+          </div>
+          <div class="sidebar-list-item">
+            <a href="#">Emergency Session — To Be Confirmed</a>
+            <span>TBC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <h4>Galactic Republic Senate Archives</h4>
+      <p>The official public records portal of the Galactic Republic. Committed to democratic transparency and the rule of law across all member worlds.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#">Legislative Index</a>
+      <a href="#">Committee Roster</a>
+      <a href="#">Delegation Directory</a>
+      <a href="#">Treaty Registry</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#">Chancellor's Office</a>
+      <a href="#">Press & Media</a>
+      <a href="#">Public Petitions</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 853rd Galactic Standard Year — Galactic Republic Senate. All rights reserved.</p>
+    <p>May the Force serve the Republic.</p>
+  </div>
+
+</body>
+</html>

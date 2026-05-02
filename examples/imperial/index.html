@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Imperial Security Bureau — Regional Command Sector 7G threat assessment and intelligence briefing terminal." />
+  <meta name="author" content="Imperial Security Bureau, Galactic Empire" />
+  <meta name="theme-color" content="#0A0A0C" />
+  <meta property="og:title" content="ISB Regional Command | Sector 7G Threat Assessment" />
+  <meta property="og:description" content="Classified intelligence briefing portal for ISB agents operating in Outer Rim sectors." />
+  <meta property="og:type" content="website" />
+  <title>ISB Regional Command | Sector 7G Threat Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0A0C;
+      --surface:   #141416;
+      --elevated:  #1E1E21;
+      --border:    #2A2A2E;
+      --red:       #C8102E;
+      --red-bright:#FF1A2E;
+      --text:      #E8E8EA;
+      --text-muted:#6B6B70;
+      --text-dim:  #3E3E44;
+      --font-ui:   'Space Grotesk', sans-serif;
+      --font-data: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-family: var(--font-data);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-brand::before {
+      content: '▪';
+      color: var(--red);
+      font-size: 18px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 0 20px;
+      height: 56px;
+      line-height: 56px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-muted);
+      border-left: 1px solid var(--border);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--elevated); }
+    .nav-links a.active { color: var(--red); }
+    .nav-status {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    .nav-status span { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+      border-bottom: 2px solid var(--red);
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.55) contrast(1.1);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,10,12,0.85) 40%, transparent);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px 64px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      max-width: 620px;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+    }
+    .badge {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .badge.alert { border-color: var(--red); color: var(--red); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-header span {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    /* GRID */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 2px; }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+    .card-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .card-value {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .card-value.danger { color: var(--red); }
+    .card-delta {
+      font-family: var(--font-data);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .card-delta.up { color: var(--red); }
+
+    /* TABLE */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .data-table th {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--elevated); }
+    .threat-level {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid;
+    }
+    .threat-level.critical { color: var(--red-bright); border-color: var(--red-bright); }
+    .threat-level.high { color: var(--red); border-color: var(--red); }
+    .threat-level.moderate { color: #888; border-color: #555; }
+    .threat-level.low { color: var(--text-dim); border-color: var(--text-dim); }
+
+    /* SIDEBAR PANEL */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+    .panel-title {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .alert-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .alert-item-title {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .alert-item-time {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .alert-item-body {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .alert-item.critical .alert-item-title { color: var(--red); }
+
+    /* BUTTON */
+    .btn {
+      font-family: var(--font-ui);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--red-bright); }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover { border-color: var(--text-muted); color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    footer p span { color: var(--red); }
+
+    .mt-32 { margin-top: 32px; }
+    .mt-48 { margin-top: 48px; }
+    .mb-8  { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">Imperial Security Bureau — Regional Command</div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Briefing</a></li>
+      <li><a href="#">Targets</a></li>
+      <li><a href="#">Sectors</a></li>
+      <li><a href="#">Operations</a></li>
+      <li><a href="#">Archive</a></li>
+    </ul>
+    <div class="nav-status">Session: <span>ISB-7G-0094</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Sector 7G Command Overview">
+    <img src="./images/hero.jpg" alt="Imperial Star Destroyers maintaining order over a sector world" />
+    <div class="hero-overlay">
+      <p class="hero-eyebrow">Imperial Security Bureau — Classified // Level 4 Clearance Required</p>
+      <h1>Sector 7G<br />Threat Assessment</h1>
+      <p class="hero-sub">Current intelligence briefing for ISB operatives assigned to Outer Rim pacification. Updated 0400 standard Imperial time.</p>
+      <div class="hero-badges">
+        <span class="badge alert">Active Threat: Rebel Cell</span>
+        <span class="badge">Sector Status: Elevated</span>
+        <span class="badge">Fleet Deployment: In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- STAT CARDS -->
+    <div class="section-header">
+      <h2>Sector Overview</h2>
+      <span>Last updated: 0400 IST // Cycle 9,995.14</span>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <p class="card-label">Confirmed Rebel Contacts</p>
+        <p class="card-value danger">14</p>
+        <p class="card-delta up">▲ 3 since last cycle</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Neutralized Targets</p>
+        <p class="card-value">87</p>
+        <p class="card-delta">Cycle-to-date</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Fleet Assets On-Station</p>
+        <p class="card-value">3</p>
+        <p class="card-delta">Star Destroyers // Sector 7G</p>
+      </div>
+    </div>
+
+    <!-- INTELLIGENCE TABLE + SIDEBAR -->
+    <div class="grid-2 mt-48">
+      <div>
+        <div class="section-header">
+          <h2>Active Intelligence Reports</h2>
+          <span>14 entries // sorted by threat level</span>
+        </div>
+        <table class="data-table" aria-label="Active intelligence reports">
+          <thead>
+            <tr>
+              <th>Designation</th>
+              <th>Location</th>
+              <th>Classification</th>
+              <th>Threat Level</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SPECTRE-7 (Fulcrum asset)</td>
+              <td>Lothal System</td>
+              <td>Rebel Command</td>
+              <td><span class="threat-level critical">Critical</span></td>
+              <td><button class="btn btn-primary">Dispatch</button></td>
+            </tr>
+            <tr>
+              <td>Ghost Cell — Unknown Vessel</td>
+              <td>Outer Rim Transit Corridor</td>
+              <td>Armed Insurgents</td>
+              <td><span class="threat-level critical">Critical</span></td>
+              <td><button class="btn btn-primary">Dispatch</button></td>
+            </tr>
+            <tr>
+              <td>Cantina Network — Mos Eisley</td>
+              <td>Tatooine</td>
+              <td>Information Brokers</td>
+              <td><span class="threat-level high">High</span></td>
+              <td><button class="btn btn-ghost">Monitor</button></td>
+            </tr>
+            <tr>
+              <td>Mon Calamari Shipyard Contacts</td>
+              <td>Dac System</td>
+              <td>Potential Fleet Supply</td>
+              <td><span class="threat-level high">High</span></td>
+              <td><button class="btn btn-ghost">Monitor</button></td>
+            </tr>
+            <tr>
+              <td>Bothan Spy Network Fragments</td>
+              <td>Bothawui</td>
+              <td>Intelligence Gathering</td>
+              <td><span class="threat-level moderate">Moderate</span></td>
+              <td><button class="btn btn-ghost">Flag</button></td>
+            </tr>
+            <tr>
+              <td>Derelict Freighter, Registry 9-Bravo</td>
+              <td>Kessel Run Approach</td>
+              <td>Smuggling Vessel</td>
+              <td><span class="threat-level low">Low</span></td>
+              <td><button class="btn btn-ghost">Log</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="panel">
+          <p class="panel-title">Priority Alerts</p>
+          <div class="alert-item critical">
+            <div class="alert-item-header">
+              <span class="alert-item-title">Rebel Transmission Intercepted</span>
+              <span class="alert-item-time">0317 IST</span>
+            </div>
+            <p class="alert-item-body">Encrypted burst transmission from Lothal surface. Decryption pending. Likely coordinates for extraction point.</p>
+          </div>
+          <div class="alert-item critical">
+            <div class="alert-item-header">
+              <span class="alert-item-title">Sensor Ghost — Sector 7G-Alpha</span>
+              <span class="alert-item-time">0241 IST</span>
+            </div>
+            <p class="alert-item-body">ISD Relentless reports intermittent contact. Possible cloaking tech. TIE interceptors scrambled.</p>
+          </div>
+          <div class="alert-item">
+            <div class="alert-item-header">
+              <span class="alert-item-title">Informant Report: Corellia</span>
+              <span class="alert-item-time">0118 IST</span>
+            </div>
+            <p class="alert-item-body">Asset Karidel confirms meeting between two known opposition figures. Surveillance authorized.</p>
+          </div>
+          <div class="alert-item">
+            <div class="alert-item-header">
+              <span class="alert-item-title">Routine Checkpoint Data</span>
+              <span class="alert-item-time">0044 IST</span>
+            </div>
+            <p class="alert-item-body">134 vessels processed at Sector 7G checkpoint. 2 detained for inspection. No contraband confirmed.</p>
+          </div>
+        </div>
+
+        <div class="panel mt-32" style="margin-top:2px;">
+          <p class="panel-title">Operative Assignments</p>
+          <table class="data-table">
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-data);font-size:11px;">ISB-7714 Kallus</td>
+                <td style="color:var(--text-muted);font-size:11px;">Lothal / Active</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-data);font-size:11px;">ISB-0021 Dedra</td>
+                <td style="color:var(--text-muted);font-size:11px;">Ferrix / Surveillance</td>
+              </tr>
+              <tr>
+                <td style="font-family:var(--font-data);font-size:11px;">ISB-0555 Blevin</td>
+                <td style="color:var(--text-muted);font-size:11px;">Outer Rim / Patrol</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Imperial Security Bureau — Regional Command // Sector <span>7G</span> // Clearance Level <span>IV</span></p>
+    <p>Unauthorized access is a capital offense. All sessions are logged. <span>Long live the Empire.</span></p>
+  </footer>
+
+</body>
+</html>

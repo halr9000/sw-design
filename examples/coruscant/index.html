@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Works Data Exchange — Coruscant's underground encrypted information brokerage. Intelligence, data, and secrets for those who know how to ask." />
+  <meta name="author" content="The Works Data Exchange, Level 1313" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <meta property="og:title" content="The Works | Underground Data Exchange — Coruscant" />
+  <meta property="og:description" content="Encrypted intelligence brokerage operating in Coruscant's lower levels. Data packets, comm intercepts, and identity fragments available to verified clients." />
+  <meta property="og:type" content="website" />
+  <title>The Works | Underground Data Exchange — Coruscant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0A0A0A;
+      --surface:  #171717;
+      --elevated: #222222;
+      --border:   #2A2A2A;
+      --purple:   #A855F7;
+      --purple-dk:#7C3AED;
+      --purple-dim:#2D1A4E;
+      --cyan:     #22D3EE;
+      --cyan-dim: #0A3344;
+      --text:     #E5E5E5;
+      --text-muted:#737373;
+      --text-dim: #3A3A3A;
+      --glow-p:   0 0 20px rgba(168,85,247,0.4), 0 0 60px rgba(168,85,247,0.15);
+      --glow-c:   0 0 20px rgba(34,211,238,0.4), 0 0 60px rgba(34,211,238,0.15);
+      --font-ui:  'Inter', sans-serif;
+      --font-data:'JetBrains Mono', monospace;
+      --radius:   2px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+    }
+    .nav-brand {
+      font-family: var(--font-data);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--purple);
+      text-shadow: var(--glow-p);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-brand::before {
+      content: '▮';
+      font-size: 10px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 0 16px;
+      height: 50px;
+      line-height: 50px;
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      transition: color 0.1s, background 0.1s;
+    }
+    .nav-links li:first-child a { border-left: 1px solid var(--border); }
+    .nav-links a:hover { background: var(--elevated); color: var(--text); }
+    .nav-links a.active { color: var(--purple); }
+    .nav-session {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .nav-session span { color: var(--cyan); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.35) saturate(1.4) contrast(1.2);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,10,10,0.95) 45%, transparent),
+        linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 56px;
+    }
+    .hero-sys {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-shadow: var(--glow-c);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-sys::before { content: '◀'; font-size: 8px; }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.0;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      max-width: 580px;
+    }
+    .hero h1 span {
+      color: var(--purple);
+      text-shadow: var(--glow-p);
+    }
+    .hero-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .hero-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .chip.purple { border-color: var(--purple); color: var(--purple); }
+    .chip.cyan   { border-color: var(--cyan);   color: var(--cyan); }
+
+    /* MARQUEE */
+    .marquee-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee-inner {
+      display: flex;
+      gap: 48px;
+      white-space: nowrap;
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      padding: 0 40px;
+    }
+    .marquee-inner span.p { color: var(--purple); }
+    .marquee-inner span.c { color: var(--cyan); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 32px 40px 48px;
+    }
+    .grid-4    { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; }
+    .grid-main { display: grid; grid-template-columns: 1fr 1fr 320px; gap: 1px; }
+    .mt-32     { margin-top: 32px; }
+    .mt-1      { margin-top: 1px; }
+
+    .col-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: var(--surface);
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+
+    /* STAT BLOCKS */
+    .stat-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 18px 16px;
+    }
+    .stat-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-family: var(--font-data);
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-value.p { color: var(--purple); text-shadow: var(--glow-p); }
+    .stat-value.c { color: var(--cyan);   text-shadow: var(--glow-c); }
+    .stat-value.n { color: var(--text); }
+    .stat-sub {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* DATA PANELS */
+    .data-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .data-panel-head {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--purple);
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--elevated);
+    }
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .data-row:last-child { border-bottom: none; }
+    .data-row:hover { background: var(--elevated); }
+    .data-row-key { color: var(--text-muted); font-family: var(--font-data); font-size: 11px; }
+    .data-row-val { color: var(--text); font-family: var(--font-data); font-size: 11px; }
+    .data-row-val.p { color: var(--purple); }
+    .data-row-val.c { color: var(--cyan); }
+    .data-row-val.w { color: #F97316; }
+
+    /* PACKET TABLE */
+    .packet-table { width: 100%; border-collapse: collapse; }
+    .packet-table th {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--elevated);
+    }
+    .packet-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-data);
+      font-size: 11px;
+    }
+    .packet-table tr:last-child td { border-bottom: none; }
+    .packet-table tr:hover td { background: var(--elevated); }
+    .grade {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      padding: 2px 7px;
+      border: 1px solid;
+    }
+    .grade.black { color: var(--purple); border-color: var(--purple); }
+    .grade.gray  { color: var(--cyan);   border-color: var(--cyan); }
+    .grade.low   { color: var(--text-muted); border-color: var(--border); }
+
+    /* SIDEBAR FEED */
+    .feed-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .feed-item:last-child { border-bottom: none; }
+    .feed-item:hover { background: var(--elevated); }
+    .feed-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .feed-source {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple);
+    }
+    .feed-time {
+      font-family: var(--font-data);
+      font-size: 9px;
+      color: var(--text-dim);
+    }
+    .feed-body {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* BUTTON */
+    .btn {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-acquire {
+      background: var(--purple-dim);
+      color: var(--purple);
+      border: 1px solid var(--purple);
+    }
+    .btn-acquire:hover { background: var(--purple); color: #fff; }
+    .btn-view {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-view:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+    footer p {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    footer p span.p { color: var(--purple); }
+    footer p span.c { color: var(--cyan); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="The Works Data Exchange navigation">
+    <div class="nav-brand">The Works — Data Exchange</div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Board</a></li>
+      <li><a href="#">Packets</a></li>
+      <li><a href="#">Intercepts</a></li>
+      <li><a href="#">Identities</a></li>
+      <li><a href="#">Contracts</a></li>
+    </ul>
+    <div class="nav-session">Session: <span>0x7F3A-92C1</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Coruscant underworld data exchange">
+    <img src="./images/hero.jpg" alt="Coruscant lower levels at night, neon purple and cyan signs reflecting off wet durasteel, layers of city extending endlessly downward, aliens and humans in the shadows" />
+    <div class="hero-overlay">
+      <p class="hero-sys">Level 1313 — The Works — Coruscant Underworld</p>
+      <h1>Data Never<br /><span>Sleeps</span></h1>
+      <p class="hero-body">The galaxy's most reliable underground intelligence exchange. Encrypted packets, intercepted comms, identity fragments — for clients who know how to look and when to stop asking questions.</p>
+      <div class="hero-chips">
+        <span class="chip purple">Black Market Intel</span>
+        <span class="chip cyan">Encrypted Comms</span>
+        <span class="chip">Identity Docs</span>
+        <span class="chip">Fleet Movement</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-bar">
+    <div class="marquee-inner">
+      <span>NEW PACKET: <span class="p">ISB INTERNAL MEMO</span> — Classified // Grade Black</span>
+      <span>INTERCEPT: <span class="c">REBEL FREQ 4.7-ALPHA</span> — Garbled / Partial</span>
+      <span>IDENTITY: <span class="p">CORELLIAN FORGED DOCS x3</span> — Verified by Zuvio</span>
+      <span>INTEL: <span class="c">HUTT CARTEL MOVEMENTS</span> — Nal Hutta Sector</span>
+      <span>PACKET: <span class="p">IMPERIAL TARIFF BYPASS CODES</span> — 48HR EXPIRY</span>
+      <span>LIVE: <span class="c">SENATE COMMS LEAK</span> — Unconfirmed Source</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- STATS -->
+    <div class="grid-4">
+      <div class="stat-block">
+        <p class="stat-label">Live Packets</p>
+        <p class="stat-value p">247</p>
+        <p class="stat-sub">↑ 14 added this cycle</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-label">Active Clients</p>
+        <p class="stat-value c">831</p>
+        <p class="stat-sub">Verified — anonymous</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-label">Transactions Today</p>
+        <p class="stat-value n">1,492</p>
+        <p class="stat-sub">Credits processed: 4.1M</p>
+      </div>
+      <div class="stat-block">
+        <p class="stat-label">ISB Breach Attempts</p>
+        <p class="stat-value p">0</p>
+        <p class="stat-sub">Encryption holding</p>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid-main mt-32">
+
+      <!-- PACKET LISTINGS -->
+      <div>
+        <div class="col-label">Featured Packets</div>
+        <table class="packet-table" aria-label="Featured data packets for sale">
+          <thead>
+            <tr>
+              <th>Packet ID</th>
+              <th>Description</th>
+              <th>Source</th>
+              <th>Grade</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--purple)">PKT-7841</td>
+              <td>ISB Sector Commander Schedules — 30 day</td>
+              <td style="color:var(--text-muted)">Unknown / Verified</td>
+              <td><span class="grade black">Black</span></td>
+              <td style="color:var(--purple)">18,000 Cr</td>
+              <td><button class="btn btn-acquire">Acquire</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--purple)">PKT-7839</td>
+              <td>Rebel Alliance Cell Locations — Partial</td>
+              <td style="color:var(--text-muted)">Bothan Network</td>
+              <td><span class="grade black">Black</span></td>
+              <td style="color:var(--purple)">24,000 Cr</td>
+              <td><button class="btn btn-acquire">Acquire</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">PKT-7835</td>
+              <td>Coruscant Port Authority Access Codes</td>
+              <td style="color:var(--text-muted)">Zuvio Fixer</td>
+              <td><span class="grade gray">Gray</span></td>
+              <td style="color:var(--cyan)">3,200 Cr</td>
+              <td><button class="btn btn-acquire">Acquire</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan)">PKT-7831</td>
+              <td>Naboo Trade Route Survey — Unclassified</td>
+              <td style="color:var(--text-muted)">Merchant Source</td>
+              <td><span class="grade low">Open</span></td>
+              <td style="color:var(--text-muted)">400 Cr</td>
+              <td><button class="btn btn-view">View</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--purple)">PKT-7828</td>
+              <td>Senate Committee Draft — War Powers Expansion</td>
+              <td style="color:var(--text-muted)">Leaked / Unverified</td>
+              <td><span class="grade black">Black</span></td>
+              <td style="color:var(--purple)">9,800 Cr</td>
+              <td><button class="btn btn-acquire">Acquire</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- INTERCEPTS -->
+      <div>
+        <div class="col-label">Comm Intercepts</div>
+        <table class="packet-table" aria-label="Communication intercepts">
+          <thead>
+            <tr>
+              <th>Freq</th>
+              <th>Origin</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--cyan);font-size:10px">4.7-ALPHA</td>
+              <td>Dantooine</td>
+              <td style="color:var(--purple)">Partial</td>
+              <td><button class="btn btn-acquire">Buy</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan);font-size:10px">IMV-009-Z</td>
+              <td>ISD Avenger</td>
+              <td style="color:#F97316">Encrypted</td>
+              <td><button class="btn btn-acquire">Buy</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan);font-size:10px">HUT-ALPHA</td>
+              <td>Nal Hutta</td>
+              <td style="color:var(--cyan)">Clear</td>
+              <td><button class="btn btn-acquire">Buy</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan);font-size:10px">SEN-PRIV-1</td>
+              <td>Senate Rotunda</td>
+              <td style="color:#F97316">Scrambled</td>
+              <td><button class="btn btn-acquire">Buy</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--cyan);font-size:10px">MND-7-CLT</td>
+              <td>Unknown / Mandalore</td>
+              <td style="color:var(--text-muted)">Fragments</td>
+              <td><button class="btn btn-view">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- LIVE FEED SIDEBAR -->
+      <div>
+        <div class="col-label">Live Feed</div>
+        <div class="data-panel">
+          <div class="feed-item">
+            <div class="feed-meta">
+              <span class="feed-source">New Packet</span>
+              <span class="feed-time">0021</span>
+            </div>
+            <p class="feed-body">ISB internal comms snapshot acquired from Coruscant dataport splicing. Grade Black.</p>
+          </div>
+          <div class="feed-item">
+            <div class="feed-meta">
+              <span class="feed-source">Breach Attempt</span>
+              <span class="feed-time">0014</span>
+            </div>
+            <p class="feed-body">Probe from 37.22.8.11 — Level 1 — blocked and rerouted to Imperial datacore honeypot.</p>
+          </div>
+          <div class="feed-item">
+            <div class="feed-meta">
+              <span class="feed-source" style="color:var(--cyan)">Sale Complete</span>
+              <span class="feed-time">2358</span>
+            </div>
+            <p class="feed-body">PKT-7821 (Outer Rim Patrol Routes) sold. Client 0x44F. 6,100 Cr credited.</p>
+          </div>
+          <div class="feed-item">
+            <div class="feed-meta">
+              <span class="feed-source">New Client</span>
+              <span class="feed-time">2349</span>
+            </div>
+            <p class="feed-body">Anonymous registration. Corellian credentials. Passed verification. Tier 2 access granted.</p>
+          </div>
+          <div class="feed-item">
+            <div class="feed-meta">
+              <span class="feed-source" style="color:var(--cyan)">System</span>
+              <span class="feed-time">2301</span>
+            </div>
+            <p class="feed-body">Encryption suite cycled. Node migration complete. No downtime recorded.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>The Works Data Exchange // <span class="p">Level 1313</span> // Coruscant</p>
+    <p>We don't ask where you got it. You don't ask where it came from. <span class="c">Encrypted.</span></p>
+  </footer>
+
+</body>
+</html>

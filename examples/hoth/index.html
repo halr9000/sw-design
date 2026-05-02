@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Echo Base Operations — Rebel Alliance tactical command center on Hoth. Real-time fleet status, evacuation routing, and ion cannon readiness." />
+  <meta name="author" content="Rebel Alliance, Echo Base Command" />
+  <meta name="theme-color" content="#0B1120" />
+  <meta property="og:title" content="Echo Base Ops | Tactical Command — Hoth" />
+  <meta property="og:description" content="Live tactical operations dashboard for Rebel Alliance Echo Base. Evacuation status, fleet tracking, and ground defense systems." />
+  <meta property="og:type" content="website" />
+  <title>Echo Base Ops | Tactical Command — Hoth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0B1120;
+      --surface:   #162032;
+      --elevated:  #1E2D45;
+      --border:    #243550;
+      --orange:    #F97316;
+      --orange-dk: #C75B10;
+      --blue:      #38BDF8;
+      --text:      #E2E8F0;
+      --text-muted:#7A93B0;
+      --text-dim:  #3A506B;
+      --font-ui:   'Space Grotesk', sans-serif;
+      --font-data: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: var(--orange);
+      padding: 6px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-alert {
+      font-family: var(--font-data);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .topbar-blink {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-brand {
+      font-family: var(--font-data);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 0 18px;
+      height: 52px;
+      line-height: 52px;
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links li:first-child a { border-left: 1px solid var(--border); }
+    .nav-links a:hover { background: var(--elevated); color: var(--text); }
+    .nav-links a.active { color: var(--blue); }
+    .nav-time {
+      font-family: var(--font-data);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .nav-time span { color: var(--orange); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 440px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.4) saturate(0.5) contrast(1.2);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, var(--bg) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 48px;
+    }
+    .hero-sys {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-sys::before { content: '▶'; font-size: 8px; }
+    .hero h1 {
+      font-family: var(--font-ui);
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero-readout {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .readout-item {
+      font-family: var(--font-data);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+    .readout-item strong { color: var(--orange); font-weight: 700; }
+    .readout-item.ok strong { color: var(--blue); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px 40px 48px;
+    }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .grid-cols { display: grid; grid-template-columns: 3fr 1fr; gap: 2px; }
+    .mt-32 { margin-top: 32px; }
+    .mt-2  { margin-top: 2px; }
+
+    .panel-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+
+    /* STAT TILES */
+    .stat-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 18px;
+    }
+    .stat-tile-label {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .stat-tile-value {
+      font-family: var(--font-data);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-tile-value.warn { color: var(--orange); }
+    .stat-tile-value.ok   { color: var(--blue); }
+    .stat-tile-note {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+    .progress-bar {
+      height: 3px;
+      background: var(--border);
+      margin-top: 12px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--orange);
+      transition: width 0.5s;
+    }
+    .progress-fill.ok { background: var(--blue); }
+
+    /* DATA TABLE */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .data-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-data);
+      font-size: 11px;
+      background: var(--bg);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--surface); }
+    .tx-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border: 1px solid;
+    }
+    .tx-label.evac    { color: var(--orange); border-color: var(--orange); }
+    .tx-label.ion     { color: var(--blue);   border-color: var(--blue); }
+    .tx-label.medical { color: #A0D0A0;        border-color: #507050; }
+    .tx-label.ground  { color: var(--text-muted); border-color: var(--border); }
+
+    /* SIDEBAR PANEL */
+    .side-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 16px;
+    }
+    .side-panel + .side-panel { margin-top: 2px; }
+    .side-panel-title {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .side-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-data);
+      font-size: 11px;
+    }
+    .side-row:last-child { border-bottom: none; }
+    .side-row-key { color: var(--text-muted); }
+    .side-row-val.ok   { color: var(--blue); }
+    .side-row-val.warn { color: var(--orange); }
+    .side-row-val.dim  { color: var(--text-dim); }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+    }
+    footer p {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    footer p span { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- ALERT BAR -->
+  <div class="topbar" role="alert">
+    <div class="topbar-blink"></div>
+    <p class="topbar-alert">Imperial Fleet Detected — Hoth System — Evacuation Protocol Delta-7 Active</p>
+  </div>
+
+  <!-- NAV -->
+  <nav aria-label="Echo Base Operations navigation">
+    <div class="nav-brand">Echo Base // Hoth // Ops Terminal</div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Command</a></li>
+      <li><a href="#">Evac Status</a></li>
+      <li><a href="#">Fleet Tracking</a></li>
+      <li><a href="#">Ground Defense</a></li>
+      <li><a href="#">Medical Bay</a></li>
+    </ul>
+    <div class="nav-time">Local: <span>0617 ABY 3</span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Echo Base tactical view">
+    <img src="./images/hero.jpg" alt="Ice cavern operations center with orange-uniformed Rebel Alliance soldiers at tactical screens, AT-AT walkers looming on the frozen horizon through viewport" />
+    <div class="hero-overlay">
+      <p class="hero-sys">Echo Base Tactical Operations Center // Hoth Sector</p>
+      <h1>Delta-7<br /><span>Evacuation</span><br />Active</h1>
+      <div class="hero-readout">
+        <div class="readout-item"><strong>IMPERIAL CONTACTS: 4</strong> — AT-AT Walkers advancing from north</div>
+        <div class="readout-item ok"><strong>ION CANNON: READY</strong> — First transport on deck</div>
+        <div class="readout-item"><strong>SHIELD GENERATOR: 68%</strong> — Nominal</div>
+        <div class="readout-item"><strong>TRANSPORTS REMAINING: 6</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- STAT TILES -->
+    <div class="grid-4">
+      <div class="stat-tile">
+        <p class="stat-tile-label">Transports Cleared</p>
+        <p class="stat-tile-value ok">02</p>
+        <p class="stat-tile-note">of 8 total — 6 remaining</p>
+        <div class="progress-bar"><div class="progress-fill ok" style="width:25%"></div></div>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-tile-label">Shield Integrity</p>
+        <p class="stat-tile-value warn">68%</p>
+        <p class="stat-tile-note">Power cell 3 degrading</p>
+        <div class="progress-bar"><div class="progress-fill warn" style="width:68%"></div></div>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-tile-label">AT-AT Distance</p>
+        <p class="stat-tile-value warn">4.2 km</p>
+        <p class="stat-tile-note">North approach — advancing</p>
+        <div class="progress-bar"><div class="progress-fill warn" style="width:42%"></div></div>
+      </div>
+      <div class="stat-tile">
+        <p class="stat-tile-label">Ion Cannon Status</p>
+        <p class="stat-tile-value ok">Ready</p>
+        <p class="stat-tile-note">Charge: 100% — Target locked</p>
+        <div class="progress-bar"><div class="progress-fill ok" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- OPERATIONS TABLE + SIDEBAR -->
+    <div class="grid-cols mt-32">
+      <div>
+        <div class="panel-label">Operations Log — Active Orders</div>
+        <table class="data-table" aria-label="Active operations log">
+          <thead>
+            <tr>
+              <th>Order Ref</th>
+              <th>Unit / Asset</th>
+              <th>Assignment</th>
+              <th>Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--blue)">ORD-0091</td>
+              <td>GR-75 Transport Bright Hope</td>
+              <td>Launch Bay 2 → Jump to Rendezvous Point 7</td>
+              <td><span class="tx-label evac">Evac</span></td>
+              <td style="color:var(--orange)">Boarding</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue)">ORD-0090</td>
+              <td>Commander Luke Skywalker</td>
+              <td>Rearguard / Snowspeeder screen — North trench</td>
+              <td><span class="tx-label ground">Ground</span></td>
+              <td style="color:var(--blue)">Airborne</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue)">ORD-0089</td>
+              <td>Ion Cannon Crew</td>
+              <td>Cover next two transports — continuous fire</td>
+              <td><span class="tx-label ion">Ion</span></td>
+              <td style="color:var(--blue)">Ready</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue)">ORD-0088</td>
+              <td>Rogue Squadron</td>
+              <td>AT-AT intercept — tow cable run</td>
+              <td><span class="tx-label ground">Ground</span></td>
+              <td style="color:var(--orange)">Engaged</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue)">ORD-0087</td>
+              <td>Medical Frigate Redemption</td>
+              <td>Hold in high orbit — receive casualties</td>
+              <td><span class="tx-label medical">Medical</span></td>
+              <td style="color:var(--blue)">On Station</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue)">ORD-0086</td>
+              <td>General Rieekan</td>
+              <td>Command center — coordinate final transport</td>
+              <td><span class="tx-label evac">Evac</span></td>
+              <td style="color:var(--text-muted)">Command</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="side-panel">
+          <p class="side-panel-title">Defense Systems</p>
+          <div class="side-row">
+            <span class="side-row-key">Shield Generator</span>
+            <span class="side-row-val warn">68% / Active</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Ion Cannon</span>
+            <span class="side-row-val ok">Charged / Ready</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Perimeter Sensors</span>
+            <span class="side-row-val warn">Partial / Jamming</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Trenches — North</span>
+            <span class="side-row-val warn">Contested</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Blast Doors</span>
+            <span class="side-row-val ok">Sealed</span>
+          </div>
+        </div>
+
+        <div class="side-panel mt-2">
+          <p class="side-panel-title">Fleet Contacts</p>
+          <div class="side-row">
+            <span class="side-row-key">ISD Avenger</span>
+            <span class="side-row-val warn">System entry</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">ISD Tyrant</span>
+            <span class="side-row-val warn">Orbit — N. pole</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Executor (Vader)</span>
+            <span class="side-row-val warn">Approaching</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">AT-AT Contacts</span>
+            <span class="side-row-val warn">4 / 4.2 km out</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">AT-ST Contacts</span>
+            <span class="side-row-val dim">12 / NW flank</span>
+          </div>
+        </div>
+
+        <div class="side-panel mt-2">
+          <p class="side-panel-title">Remaining Personnel</p>
+          <div class="side-row">
+            <span class="side-row-key">Combat Personnel</span>
+            <span class="side-row-val ok">840</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Non-Combat / Support</span>
+            <span class="side-row-val ok">312</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">Medical</span>
+            <span class="side-row-val ok">47</span>
+          </div>
+          <div class="side-row">
+            <span class="side-row-key">KIA / MIA</span>
+            <span class="side-row-val warn">21 / 8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Echo Base // Hoth // <span>Delta-7 Protocol Active</span></p>
+    <p>May the <span>Force</span> be with us.</p>
+  </footer>
+
+</body>
+</html>

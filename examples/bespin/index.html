@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cloud City — Tibanna Gas Consortium & Luxury Resort Registry. Book a suite, review gas futures, and explore the finest destination in the galaxy's upper atmosphere." />
+  <meta name="author" content="Lando Calrissian, Baron-Administrator, Cloud City" />
+  <meta name="theme-color" content="#1C1917" />
+  <meta property="og:title" content="Cloud City | Tibanna Gas Consortium & Resort Registry" />
+  <meta property="og:description" content="The premier luxury destination above Bespin. Gas mining, resort bookings, and administrative services for Cloud City's guests and partners." />
+  <meta property="og:type" content="website" />
+  <title>Cloud City | Tibanna Gas Consortium & Resort Registry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #1C1917;
+      --surface:    #292524;
+      --elevated:   #33302E;
+      --border:     #3D3A38;
+      --gold:       #F59E0B;
+      --gold-dk:    #D97706;
+      --gold-dim:   #78530A;
+      --gold-surface:#2A2017;
+      --cyan:       #67E8F9;
+      --cyan-dim:   #164E63;
+      --text:       #F5F0EB;
+      --text-muted: #A89E94;
+      --text-dim:   #6B6157;
+      --font-head:  'Playfair Display', Georgia, serif;
+      --font-body:  'Inter', sans-serif;
+      --font-data:  'JetBrains Mono', monospace;
+      --radius:     10px;
+      --radius-sm:  6px;
+      --shadow:     0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-gold:0 0 24px rgba(245,158,11,0.15);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+    }
+    .nav-brand {
+      font-family: var(--font-head);
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-brand-rule {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+    .nav-brand-sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      font-weight: 300;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: var(--elevated); color: var(--text); }
+    .nav-links a.active { color: var(--gold); }
+    .btn-reserve {
+      padding: 10px 24px;
+      background: var(--gold);
+      color: #1C1917;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .btn-reserve:hover { background: var(--gold-dk); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 560px;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.7) saturate(1.1);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 20%, rgba(28,25,23,0.7) 65%, rgba(28,25,23,0.98) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: center;
+      padding: 56px;
+    }
+    .hero-rule {
+      width: 64px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 16px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 60px;
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 32px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .btn-gold {
+      padding: 14px 36px;
+      background: var(--gold);
+      color: #1C1917;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-dk); box-shadow: var(--shadow-gold); }
+    .btn-ghost {
+      padding: 14px 36px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* TICKER */
+    .ticker {
+      background: var(--gold-surface);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: 10px 56px;
+      display: flex;
+      gap: 40px;
+      overflow: hidden;
+    }
+    .ticker-item {
+      font-family: var(--font-data);
+      font-size: 11px;
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+    .ticker-item strong { color: var(--gold); }
+    .ticker-item .up   { color: #4CAF50; }
+    .ticker-item .down { color: #F44336; }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 64px 56px;
+    }
+    .grid-3   { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-2   { display: grid; grid-template-columns: 3fr 2fr; gap: 32px; }
+    .mt-64    { margin-top: 64px; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 12px 0 8px;
+    }
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 300;
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* SUITE CARDS */
+    .suite-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .suite-card:hover { transform: translateY(-4px); box-shadow: var(--shadow), var(--shadow-gold); }
+    .suite-card-thumb {
+      height: 180px;
+      background: var(--elevated);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 32px;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .suite-card-body { padding: 22px; }
+    .suite-card-tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .suite-card h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .suite-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+    .suite-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .suite-price {
+      font-family: var(--font-head);
+      font-size: 22px;
+      color: var(--gold);
+    }
+    .suite-price span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+    .btn-book {
+      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .btn-book:hover { background: var(--gold); color: #1C1917; }
+
+    /* FUTURES TABLE */
+    .futures-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .futures-table th {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 18px;
+      background: var(--elevated);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .futures-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .futures-table tr:last-child td { border-bottom: none; }
+    .futures-table tr:hover td { background: var(--elevated); }
+    .chg-up   { color: #4CAF50; font-family: var(--font-data); font-size: 13px; }
+    .chg-down { color: #EF5350; font-family: var(--font-data); font-size: 13px; }
+    .chg-flat { color: var(--text-muted); font-family: var(--font-data); font-size: 13px; }
+
+    /* SIDEBAR QUOTE */
+    .quote-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .quote-panel blockquote {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-left: 16px;
+      border-left: 3px solid var(--gold);
+    }
+    .quote-attr {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 40px 56px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+    footer h4 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    footer p, footer a {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      text-decoration: none;
+      display: block;
+      font-weight: 300;
+    }
+    footer a:hover { color: var(--gold); }
+    .footer-bottom {
+      background: #111;
+      padding: 14px 56px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Cloud City navigation">
+    <div class="nav-brand">
+      Cloud City
+      <div class="nav-brand-rule"></div>
+      <div class="nav-brand-sub">Tibanna Gas Consortium & Resort Registry</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Overview</a></li>
+      <li><a href="#">Suites</a></li>
+      <li><a href="#">Gas Futures</a></li>
+      <li><a href="#">Dining</a></li>
+      <li><a href="#">Administration</a></li>
+    </ul>
+    <button class="btn-reserve">Reserve a Suite</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Cloud City resort overview">
+    <img src="./images/hero.jpg" alt="Cloud City floating above amber-gold clouds of Bespin at golden hour, elegant white towers and skylights gleaming in twin sunsets" />
+    <div class="hero-overlay">
+      <div class="hero-rule"></div>
+      <p class="hero-eyebrow">Bespin — Upper Atmosphere — Elevation 59,000m</p>
+      <h1>Floating Above<br /><em>Everything</em></h1>
+      <p class="hero-sub">Cloud City offers the finest accommodations, freshest tibanna gas, and most exclusive dining in the entire galaxy. Baron-Administrator Calrissian welcomes you personally.</p>
+      <div class="hero-actions">
+        <button class="btn-gold">Book Your Suite</button>
+        <button class="btn-ghost">Gas Futures Portal</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAS TICKER -->
+  <div class="ticker" aria-label="Tibanna gas futures ticker">
+    <div class="ticker-item">TIBANNA SPOT <strong>847 Cr/MT</strong> <span class="up">▲ +2.3%</span></div>
+    <div class="ticker-item">TIBANNA Q3 FUTURES <strong>862 Cr/MT</strong> <span class="up">▲ +0.8%</span></div>
+    <div class="ticker-item">PROCESSED TIBANNA <strong>1,240 Cr/MT</strong> <span class="down">▼ -0.4%</span></div>
+    <div class="ticker-item">CLOUD CITY OCCUPANCY <strong>91%</strong> <span class="up">▲ Peak Season</span></div>
+    <div class="ticker-item">MINING OUTPUT <strong>14,200 MT/Day</strong> <span class="flat">— Nominal</span></div>
+    <div class="ticker-item">IMPERIAL GARRISON <strong>0</strong> <span class="flat">— No Active Agreements</span></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- SUITES -->
+    <div>
+      <p class="section-eyebrow">Accommodation</p>
+      <h2 class="section-title">Cloud City Suites</h2>
+      <div class="section-rule"></div>
+      <p class="section-desc">Every suite offers panoramic views of Bespin's gaseous sea. Enjoy Art Deco interiors, personal droid service, and the ever-present golden light of the upper atmosphere.</p>
+    </div>
+    <div class="grid-3">
+      <div class="suite-card">
+        <div class="suite-card-thumb">◈</div>
+        <div class="suite-card-body">
+          <p class="suite-card-tag">Signature Suite</p>
+          <h3>The Calrissian Wing</h3>
+          <p>Two rooms, private observation deck, in-suite sauna, and priority access to the Ugnaughts' finest dining service. The Baron-Administrator's personal favourite.</p>
+          <div class="suite-card-footer">
+            <div class="suite-price">3,200 Cr <span>/ night</span></div>
+            <button class="btn-book">Book</button>
+          </div>
+        </div>
+      </div>
+      <div class="suite-card">
+        <div class="suite-card-thumb">◇</div>
+        <div class="suite-card-body">
+          <p class="suite-card-tag">Premier Suite</p>
+          <h3>Skywatch Penthouse</h3>
+          <p>Floor-to-ceiling viewports, dedicated protocol droid, climate-controlled cellar with rare Corellian and Naboo vintages. Sunset-facing.</p>
+          <div class="suite-card-footer">
+            <div class="suite-price">1,800 Cr <span>/ night</span></div>
+            <button class="btn-book">Book</button>
+          </div>
+        </div>
+      </div>
+      <div class="suite-card">
+        <div class="suite-card-thumb">○</div>
+        <div class="suite-card-body">
+          <p class="suite-card-tag">Deluxe Room</p>
+          <h3>Cloud Garden Suite</h3>
+          <p>Atmospheric garden terrace, living wall of Naboo orchids, and a private repulsorlift balcony. For those who prefer proximity to the cloud layer.</p>
+          <div class="suite-card-footer">
+            <div class="suite-price">860 Cr <span>/ night</span></div>
+            <button class="btn-book">Book</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FUTURES TABLE + SIDEBAR -->
+    <div class="grid-2 mt-64">
+      <div>
+        <p class="section-eyebrow">Tibanna Gas Consortium</p>
+        <h2 class="section-title">Market Futures</h2>
+        <div class="section-rule"></div>
+        <p class="section-desc">Live pricing and contract availability for tibanna gas extraction contracts from Bespin's upper atmosphere.</p>
+        <table class="futures-table" aria-label="Tibanna gas futures pricing">
+          <thead>
+            <tr>
+              <th>Grade</th>
+              <th>Spot Price</th>
+              <th>Volume (MT)</th>
+              <th>30-Day Change</th>
+              <th>Contract</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:500">Processed Grade-A</td>
+              <td style="font-family:var(--font-data)">1,240 Cr</td>
+              <td style="font-family:var(--font-data);color:var(--text-muted)">4,200</td>
+              <td class="chg-down">▼ −0.4%</td>
+              <td><button class="btn-book">Inquire</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Raw Cloud Tibanna</td>
+              <td style="font-family:var(--font-data)">847 Cr</td>
+              <td style="font-family:var(--font-data);color:var(--text-muted)">9,100</td>
+              <td class="chg-up">▲ +2.3%</td>
+              <td><button class="btn-book">Inquire</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Blended Export Grade</td>
+              <td style="font-family:var(--font-data)">1,010 Cr</td>
+              <td style="font-family:var(--font-data);color:var(--text-muted)">6,800</td>
+              <td class="chg-up">▲ +1.1%</td>
+              <td><button class="btn-book">Inquire</button></td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">Military Grade (Restricted)</td>
+              <td style="font-family:var(--font-data)">2,100 Cr</td>
+              <td style="font-family:var(--font-data);color:var(--text-muted)">800</td>
+              <td class="chg-flat">— Stable</td>
+              <td><button class="btn-book" style="opacity:0.5;pointer-events:none">Restricted</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SIDEBAR QUOTE -->
+      <div>
+        <div class="quote-panel">
+          <blockquote>"You got here just in time. We're making some last-minute alterations to the deal — but I'm sure you'll find it more than acceptable."</blockquote>
+          <p class="quote-attr">— Lando Calrissian, Baron-Administrator, Cloud City</p>
+        </div>
+        <div class="quote-panel" style="margin-top:24px">
+          <p class="section-eyebrow" style="margin-bottom:12px">Cloud City Facts</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text-muted)">Population</span>
+              <span style="font-family:var(--font-data)">6 million</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text-muted)">Elevation</span>
+              <span style="font-family:var(--font-data)">59,000 m</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <span style="color:var(--text-muted)">Repulsorlift Units</span>
+              <span style="font-family:var(--font-data)">392</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px">
+              <span style="color:var(--text-muted)">Ugnaught Workers</span>
+              <span style="font-family:var(--font-data)">~32,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <h4>Cloud City</h4>
+      <p>The jewel of the Outer Rim. Rising above the golden clouds of Bespin, Cloud City has served as the galaxy's premier destination for relaxation, commerce, and tibanna gas processing since its founding.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="#">Suite Reservations</a>
+      <a href="#">Gas Futures Market</a>
+      <a href="#">Dining & Entertainment</a>
+      <a href="#">Medical Wing</a>
+    </div>
+    <div>
+      <h4>Administration</h4>
+      <a href="#">Baron-Administrator's Office</a>
+      <a href="#">Port Control</a>
+      <a href="#">Ugnaught Guild</a>
+      <a href="#">Security Wing</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© Cloud City, Bespin. Baron-Administrator Lando Calrissian. All rights reserved.</p>
+    <p>No Imperial presence. No questions asked.</p>
+  </div>
+
+</body>
+</html>

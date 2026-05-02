@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Covert — Mandalorian clan contract and bounty registry for sworn members of the Watch. This is the Way." />
+  <meta name="author" content="The Covert, Children of the Watch" />
+  <meta name="theme-color" content="#1C1C1E" />
+  <meta property="og:title" content="The Covert | Bounty & Contract Registry" />
+  <meta property="og:description" content="Clan Mudhorn contract board. Active bounties, forge commissions, and clan directives for sworn Mandalorians." />
+  <meta property="og:type" content="website" />
+  <title>The Covert | Bounty & Contract Registry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1C1C1E;
+      --surface:   #2A2A2C;
+      --elevated:  #333336;
+      --border:    #3E3E42;
+      --orange:    #D4652A;
+      --orange-lt: #E87A42;
+      --leather:   #6B4E3D;
+      --sand:      #C4B9A8;
+      --text:      #E8E4DE;
+      --text-muted:#9B9690;
+      --text-dim:  #5A5754;
+      --font-head: 'Barlow Condensed', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-data: 'JetBrains Mono', monospace;
+      --radius:    4px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 2px solid var(--orange);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-clan-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--orange);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #fff;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block;
+      padding: 8px 16px;
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-muted);
+      border-radius: var(--radius);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--elevated); color: var(--text); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-creed {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 460px;
+      overflow: hidden;
+      border-bottom: 3px solid var(--orange);
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.5) saturate(0.8);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(28,28,30,0.9) 0%, rgba(28,28,30,0.3) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px 56px;
+    }
+    .hero-creed {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: 62px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.0;
+      margin-bottom: 14px;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--sand);
+      max-width: 500px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+    }
+    .hero-stat {
+      border-left: 3px solid var(--orange);
+      padding-left: 14px;
+    }
+    .hero-stat-num {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-family: var(--font-data);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* LAYOUT */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-main { display: grid; grid-template-columns: 3fr 1fr; gap: 16px; }
+    .mt-48 { margin-top: 48px; }
+
+    .section-label {
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* BOUNTY CARDS */
+    .bounty-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      border-left: 3px solid transparent;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .bounty-card:hover { border-left-color: var(--orange); transform: translateX(2px); }
+    .bounty-card.priority { border-left-color: var(--orange); }
+    .bounty-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .bounty-title {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .bounty-payout {
+      font-family: var(--font-data);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--orange);
+    }
+    .bounty-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .meta-tag {
+      font-family: var(--font-data);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 2px;
+    }
+    .meta-tag.alive { border-color: var(--orange); color: var(--orange); }
+    .meta-tag.caution { border-color: #888; color: #888; }
+    .bounty-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px; }
+    .btn-claim {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-claim:hover { background: var(--orange-lt); }
+    .btn-claim.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-claim.ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* TRACKING TABLE */
+    .track-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .track-table th {
+      font-family: var(--font-data);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .track-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .track-table tr:last-child td { border-bottom: none; }
+    .track-table tr:hover td { background: var(--elevated); }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .status-dot.active   { background: var(--orange); }
+    .status-dot.complete { background: #4CAF50; }
+    .status-dot.pending  { background: var(--text-dim); }
+
+    /* SIDEBAR */
+    .forge-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .forge-panel + .forge-panel { margin-top: 16px; }
+    .panel-heading {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .creed-line {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .creed-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .armorer-stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .armorer-stat:last-child { border-bottom: none; }
+    .armorer-stat-key { color: var(--text-muted); }
+    .armorer-stat-val {
+      font-family: var(--font-data);
+      font-size: 12px;
+      color: var(--sand);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 2px solid var(--orange);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    footer span { color: var(--orange); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Primary navigation">
+    <div class="nav-brand">
+      <div class="nav-clan-mark">⬡</div>
+      The Covert
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Contracts</a></li>
+      <li><a href="#">Active Hunts</a></li>
+      <li><a href="#">The Forge</a></li>
+      <li><a href="#">Clan Roll</a></li>
+      <li><a href="#">The Creed</a></li>
+    </ul>
+    <div class="nav-creed">This is the Way</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Clan Mudhorn contract board">
+    <img src="./images/hero.jpg" alt="A Mandalorian warrior in beskar armor standing in a forge-lit cavern, Mandalorian sigil etched in the wall behind" />
+    <div class="hero-overlay">
+      <p class="hero-creed">Clan Mudhorn — Children of the Watch — Active Board</p>
+      <h1>Contracts<br />& Bounties</h1>
+      <p class="hero-sub">Open guild contracts for sworn members of the Covert. Claim responsibly. Honor the creed. Return with the quarry — or not at all.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">9</div>
+          <div class="hero-stat-label">Open Contracts</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Priority Bounties</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">47k</div>
+          <div class="hero-stat-label">Credits Available</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="page">
+
+    <!-- PRIORITY BOUNTIES -->
+    <div>
+      <p class="section-label">Priority Contracts</p>
+      <p class="section-title">Open Bounties</p>
+      <p class="section-desc">High-value quarries. Alive preferred. Verify puck with the Armorer before claiming.</p>
+    </div>
+    <div class="grid-3">
+      <div class="bounty-card priority">
+        <div class="bounty-card-header">
+          <span class="bounty-title">Quarry: Imperial Remnant Officer</span>
+          <span class="bounty-payout">12,000 cr</span>
+        </div>
+        <div class="bounty-meta">
+          <span class="meta-tag alive">Alive Only</span>
+          <span class="meta-tag">Outer Rim</span>
+          <span class="meta-tag caution">Armed</span>
+        </div>
+        <p class="bounty-desc">Remnant Moff operating in the Outer Rim. Believed to be holding Force-sensitive children. Client: unknown. Puck verified by Armorer.</p>
+        <button class="btn-claim">Claim Contract</button>
+      </div>
+      <div class="bounty-card priority">
+        <div class="bounty-card-header">
+          <span class="bounty-title">Quarry: Trandoshan Slavers (3)</span>
+          <span class="bounty-payout">8,500 cr</span>
+        </div>
+        <div class="bounty-meta">
+          <span class="meta-tag">Dead or Alive</span>
+          <span class="meta-tag">Florrum System</span>
+          <span class="meta-tag caution">Crew of 14</span>
+        </div>
+        <p class="bounty-desc">Three named Trandoshan cartel leaders. Operating a slaving route through the Florrum system. Client payment in beskar — verified weight.</p>
+        <button class="btn-claim">Claim Contract</button>
+      </div>
+      <div class="bounty-card priority">
+        <div class="bounty-card-header">
+          <span class="bounty-title">Quarry: Rebel Deserter</span>
+          <span class="bounty-payout">5,200 cr</span>
+        </div>
+        <div class="bounty-meta">
+          <span class="meta-tag alive">Alive Only</span>
+          <span class="meta-tag">Corellia</span>
+        </div>
+        <p class="bounty-desc">Former Rebel Alliance sergeant. Fled with encoded comm crystals. Non-violent quarry. City extraction. Straightforward puck.</p>
+        <button class="btn-claim">Claim Contract</button>
+      </div>
+    </div>
+
+    <!-- TRACKING + SIDEBAR -->
+    <div class="grid-main mt-48">
+      <div>
+        <p class="section-label">Active Hunts</p>
+        <p class="section-title">Tracking Log</p>
+        <p class="section-desc">Currently claimed contracts from the Covert board.</p>
+        <table class="track-table" aria-label="Active hunt tracking log">
+          <thead>
+            <tr>
+              <th>Quarry</th>
+              <th>Hunter</th>
+              <th>Last Known</th>
+              <th>Payout</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600">Grogu (Ward — Non-Bounty)</td>
+              <td style="font-family:var(--font-data);font-size:12px">Din Djarin</td>
+              <td>Navarro</td>
+              <td style="color:var(--orange);font-family:var(--font-data)">—</td>
+              <td><span class="status-dot active"></span>Protected</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Valin Hess, ISB</td>
+              <td style="font-family:var(--font-data);font-size:12px">Bo-Katan</td>
+              <td>Morak</td>
+              <td style="color:var(--orange);font-family:var(--font-data)">9,000 cr</td>
+              <td><span class="status-dot active"></span>En Route</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Fennec Shand</td>
+              <td style="font-family:var(--font-data);font-size:12px">Unclaimed</td>
+              <td>Tatooine</td>
+              <td style="color:var(--orange);font-family:var(--font-data)">3,400 cr</td>
+              <td><span class="status-dot pending"></span>Open</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Remnant Commander</td>
+              <td style="font-family:var(--font-data);font-size:12px">Paz Vizsla</td>
+              <td>Outer Rim</td>
+              <td style="color:var(--orange);font-family:var(--font-data)">12,000 cr</td>
+              <td><span class="status-dot active"></span>In Hunt</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Trandoshan Slavers</td>
+              <td style="font-family:var(--font-data);font-size:12px">The Armorer</td>
+              <td>Florrum</td>
+              <td style="color:var(--orange);font-family:var(--font-data)">8,500 cr</td>
+              <td><span class="status-dot complete"></span>Completed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="forge-panel">
+          <p class="panel-heading">The Creed</p>
+          <p class="creed-line">This Is the Way</p>
+          <p class="creed-note">The Mandalorian Creed is not a philosophy. It is a code of survival, written in beskar and blood. We do not remove the helmet. We protect the foundlings. We honor the covert.</p>
+        </div>
+
+        <div class="forge-panel">
+          <p class="panel-heading">Forge Status</p>
+          <div class="armorer-stat">
+            <span class="armorer-stat-key">Armorer</span>
+            <span class="armorer-stat-val">On Station</span>
+          </div>
+          <div class="armorer-stat">
+            <span class="armorer-stat-key">Beskar Stock</span>
+            <span class="armorer-stat-val">14.3 kg</span>
+          </div>
+          <div class="armorer-stat">
+            <span class="armorer-stat-key">Open Commissions</span>
+            <span class="armorer-stat-val">3</span>
+          </div>
+          <div class="armorer-stat">
+            <span class="armorer-stat-key">Foundling Armor</span>
+            <span class="armorer-stat-val">2 pending</span>
+          </div>
+          <div class="armorer-stat">
+            <span class="armorer-stat-key">Darksaber Status</span>
+            <span class="armorer-stat-val">In combat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>The Covert — <span>Clan Mudhorn</span> — Children of the Watch</p>
+    <p>Never remove the helmet. <span>This is the Way.</span></p>
+  </footer>
+
+</body>
+</html>
