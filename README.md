@@ -27,6 +27,7 @@ sw-design/
 ```
 
 Each `examples/` subfolder contains:
+
 - `index.html` — Fully styled sample page implementing the design system
 - `images/hero.jpg` — Hero image slot (see image prompts below for generation)
 
@@ -75,6 +76,7 @@ Every prompt is divided into 9 sections:
 Copy the full contents of any `.md` file and paste it into your AI assistant as a system prompt or initial message. Then ask it to design or redesign a UI page — the assistant will apply the design system consistently.
 
 **Works well with:**
+
 - [Claude](https://claude.ai)
 - [ChatGPT](https://chat.openai.com)
 - [v0 by Vercel](https://v0.dev)
@@ -107,24 +109,31 @@ When creating a new prompt, follow the 9-section structure above. Choose a Star 
 Each example page includes a `images/hero.jpg` slot. Generate a **square image** (1:1, e.g. 1024×1024) using these prompts:
 
 ### Imperial — `examples/imperial/images/hero.jpg`
+>
 > Two Imperial Star Destroyers holding formation over a grey industrial planet, dramatic deep space backdrop, cool blue starlight, a small TIE fighter silhouette against the hull of the nearest Destroyer, hyper-detailed sci-fi concept art, cinematic widescreen crop, dark and severe palette — blacks, greys, and a single point of red light
 
 ### Republic — `examples/republic/images/hero.jpg`
+>
 > The Galactic Republic Senate rotunda chamber viewed from above, thousands of floating senatorial pods extending into a vast circular void, warm golden-white light from the central podium, blue holographic displays scattered throughout, regal and optimistic atmosphere, digital painting, cinematic aerial perspective
 
 ### Mandalorian — `examples/mandalorian/images/hero.jpg`
+>
 > A lone Mandalorian warrior in battered beskar armour standing in a forge-lit underground cavern, orange forge glow reflecting off the helmet visor, rough stone walls with Mandalorian sigil carved in durasteel, atmospheric smoke, dramatic side lighting, hyper-detailed concept art, dark warm palette
 
 ### Hoth — `examples/hoth/images/hero.jpg`
+>
 > Rebel Alliance Echo Base operations center carved into an ice cavern on Hoth, orange-uniformed soldiers at tactical consoles, blue holographic displays, AT-AT walkers visible through a viewport in the ice wall advancing across a frozen tundra, tense atmosphere, cold blue-white environment with warm orange uniform accents, cinematic sci-fi concept art
 
 ### Bespin — `examples/bespin/images/hero.jpg`
+>
 > Cloud City floating above the amber-golden cloud layer of Bespin at sunset, elegant Art Deco white towers and transparent skylights catching the twin-sun light, deep amber and rose sky fading to violet at the edges, serene and luxurious atmosphere, matte painting style, warm gold and sky-blue palette
 
 ### Coruscant — `examples/coruscant/images/hero.jpg`
+>
 > Coruscant lower levels at night, Level 1313, neon purple and cyan signs reflecting off rain-slicked durasteel floors, endless layers of city extending downward into darkness, shadowy figures of aliens and humans in hooded cloaks, cyberpunk noir atmosphere, glowing advertisements in alien script, hyper-dense urban environment, digital painting
 
 ### Tatooine — `examples/tatooine/images/hero.jpg`
+>
 > Mos Eisley spaceport marketplace at golden hour, twin suns low on the horizon casting long warm shadows, weathered sand-coloured adobe buildings, a mix of aliens and humans trading in a dusty open market, various droids and a dewback in the background, a YT-1300 freighter visible in a docking bay, warm amber and ochre palette, lived-in frontier atmosphere
 
 ---
