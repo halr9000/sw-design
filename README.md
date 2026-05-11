@@ -1,5 +1,7 @@
 # Star Wars Design System Prompts
 
+[![Live Demo](https://img.shields.io/badge/-Live%20Demo-4fc3f7?style=for-the-badge&labelColor=111118)](https://halr9000.github.io/sw-design/)
+
 A collection of detailed, AI-ready design system prompts themed around locations and factions from the Star Wars universe. Each prompt follows a structured 9-section format inspired by [designprompts.dev](https://www.designprompts.dev), designed to be dropped directly into AI assistants like Claude, ChatGPT, or v0 to generate cohesive, themed UI designs.
 
 ---
@@ -43,15 +45,15 @@ Each prompt targets a standard "Acme Platform" demo page as its canvas, giving t
 
 ## Design Systems
 
-| File | Theme | Mood | Example Page |
+| File | Theme | Mood | Live Example |
 |---|---|---|---|
-| `imperial-design-system.md` | Galactic Empire | Authoritarian, cold, geometric, severe | ISB intelligence terminal |
-| `republic-design-system.md` | Galactic Republic | Democratic, noble, structured, resilient | Senate session archives |
-| `mandalorian-design-system.md` | Mandalorian Culture | Battle-worn, pragmatic, utilitarian, rugged | Covert bounty board |
-| `hoth-design-system.md` | Hoth Ice Base | Frigid, survivalist, clinical, tactical | Echo Base ops dashboard |
-| `bespin-design-system.md` | Cloud City | Elegant, luxurious, serene, ethereal | Cloud City resort & gas market |
-| `coruscant-design-system.md` | Galactic Capital | Cyber-noir, high-density, neon-lit, dynamic | Underground data exchange |
-| `tatooine-design-system.md` | Desert Planet | Sun-bleached, scavenged, rugged, utilitarian | Mos Eisley trade registry |
+| `imperial-design-system.md` | Galactic Empire | Authoritarian, cold, geometric, severe | [ISB Sector 7G →](https://halr9000.github.io/sw-design/examples/imperial/) |
+| `republic-design-system.md` | Galactic Republic | Democratic, noble, structured, resilient | [Galactic Senate Archives →](https://halr9000.github.io/sw-design/examples/republic/) |
+| `mandalorian-design-system.md` | Mandalorian Culture | Battle-worn, pragmatic, utilitarian, rugged | [The Covert →](https://halr9000.github.io/sw-design/examples/mandalorian/) |
+| `hoth-design-system.md` | Hoth Ice Base | Frigid, survivalist, clinical, tactical | [Echo Base Ops →](https://halr9000.github.io/sw-design/examples/hoth/) |
+| `bespin-design-system.md` | Cloud City | Elegant, luxurious, serene, ethereal | [Cloud City Consortium →](https://halr9000.github.io/sw-design/examples/bespin/) |
+| `coruscant-design-system.md` | Galactic Capital | Cyber-noir, high-density, neon-lit, dynamic | [The Works Underground →](https://halr9000.github.io/sw-design/examples/coruscant/) |
+| `tatooine-design-system.md` | Desert Planet | Sun-bleached, scavenged, rugged, utilitarian | [Mos Eisley Exchange →](https://halr9000.github.io/sw-design/examples/tatooine/) |
 
 ---
 
